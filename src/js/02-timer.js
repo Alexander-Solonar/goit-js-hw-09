@@ -22,21 +22,22 @@ flatpickr('#datetime-picker', options);
 function createTimer(selectedDate) {
   if (selectedDate.getTime() < Date.now()) {
     Notiflix.Notify.failure('Please choose a date in the future');
-  } else {
-    btnStart.disabled = false;
-
-    btnStart.addEventListener('click', () => {
-      const idInterval = setInterval(() => {
-        const restOfTime = selectedDate.getTime() - Date.now();
-        const convertDate = convertMs(restOfTime);
-        timerСounter(convertDate);
-
-        if (restOfTime < 1000) {
-          clearInterval(idInterval);
-        }
-      }, 1000);
-    });
+    return;
   }
+
+  btnStart.disabled = false;
+
+  btnStart.addEventListener('click', () => {
+    const idInterval = setInterval(() => {
+      const restOfTime = selectedDate.getTime() - Date.now();
+      const convertDate = convertMs(restOfTime);
+      timerСounter(convertDate);
+
+      if (restOfTime < 1000) {
+        clearInterval(idInterval);
+      }
+    }, 1000);
+  });
 }
 
 function convertMs(ms) {
