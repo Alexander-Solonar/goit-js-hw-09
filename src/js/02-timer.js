@@ -30,16 +30,20 @@ function createTimer(selectedDate) {
     btnStart.disabled = true;
     inputDate.disabled = true;
 
-    const idInterval = setInterval(() => {
-      const restOfTime = selectedDate.getTime() - Date.now();
-      const convertDate = convertMs(restOfTime);
-      addLeadingZero(convertDate);
-
-      if (restOfTime < 1000) {
-        clearInterval(idInterval);
-      }
-    }, 1000);
+    countdown(selectedDate);
   });
+}
+
+function countdown(arrayDate) {
+  const idInterval = setInterval(() => {
+    const restOfTime = arrayDate.getTime() - Date.now();
+    const convertDate = convertMs(restOfTime);
+    addLeadingZero(convertDate);
+
+    if (restOfTime < 1000) {
+      clearInterval(idInterval);
+    }
+  }, 1000);
 }
 
 function convertMs(ms) {
