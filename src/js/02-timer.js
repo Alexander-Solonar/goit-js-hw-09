@@ -2,9 +2,9 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
+const inputDate = document.querySelector('#datetime-picker');
 const btnStart = document.querySelector('button[data-start]');
 const valueTimerEl = document.querySelectorAll('.value');
-
 btnStart.disabled = true;
 
 const options = {
@@ -24,14 +24,16 @@ function createTimer(selectedDate) {
     Notiflix.Notify.failure('Please choose a date in the future');
     return;
   }
-
   btnStart.disabled = false;
 
   btnStart.addEventListener('click', () => {
+    btnStart.disabled = true;
+    inputDate.disabled = true;
+
     const idInterval = setInterval(() => {
       const restOfTime = selectedDate.getTime() - Date.now();
       const convertDate = convertMs(restOfTime);
-      timerСounter(convertDate);
+      addLeadingZero(convertDate);
 
       if (restOfTime < 1000) {
         clearInterval(idInterval);
@@ -54,7 +56,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function timerСounter(convertDate) {
+function addLeadingZero(convertDate) {
   valueTimerEl.forEach((valueEl, index) => {
     const arrayDate = Object.values(convertDate);
     valueEl.textContent = String(arrayDate[index]).padStart(2, '0');
